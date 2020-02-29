@@ -116,3 +116,14 @@ footer {
     color: #F15B31;
     font-weight: 700;
 }
+
+#reset-button {
+    color: #F15B31;
+    display: inline-block;
+}
+
+#reset-button:hover {
+    color: #F15B31;
+    font-weight: 800;
+    display: inline-block;
+}

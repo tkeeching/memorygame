@@ -46,12 +46,25 @@ function checkForMatch() {
     }
 }
 
-/* function addReset() {
-    let resetButton = document.createElement('a');
+function addReset() {
+    let resetButton = document.createElement('p');
     resetButton.innerHTML = "Reset board";
-    resetButton.addEventListener('click', createBoard);
-    document.getElementById('reset').appendChild(resetButton);
-} */
+    resetButton.setAttribute('id', "reset-button");
+    resetButton.addEventListener('click', resetBoard);
+    document.getElementById('reset-board').appendChild(resetButton);
+}
+
+function resetBoard() {
+    console.log('reset button clicked');
+    for (let i = 0; i < cards.length; i++) {
+        let cardElement = document.getElementsByTagName('img')[i];
+        cardElement.setAttribute('src', "images/back.png");
+        console.log("card " + i + " has been reset"); 
+        cardsInPlay.pop();  
+    }
+    document.getElementById('reset-board').removeChild(document.getElementById('reset-button'));
+    console.log("board has been reset, reset button removed");
+}
 
 function flipCard() {
     let cardId = this.getAttribute('data-id');
@@ -62,6 +75,10 @@ function flipCard() {
     this.setAttribute('src',cards[cardId].cardImage);
     if (cardsInPlay.length === 2) {
         setInterval(checkForMatch(), 2000);
+    }
+    if (document.getElementById('reset-button') === null) {
+        console.log("reset button created")
+        addReset();
     }
 }
 
