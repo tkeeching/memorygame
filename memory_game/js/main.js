@@ -24,9 +24,23 @@ const cards = [
     }    
 ];
 
+const cardsRandom = [];
+
 const cardsInPlay = [];
 
+function randomiseCards() {
+    for (let i = 0; i < cards.length; i++) {
+        let randomId = Math.floor(Math.random() * cards.length);
+        while (cards[randomId] === cardsRandom[0] || cards[randomId] === cardsRandom[1] || cards[randomId] === cardsRandom[2] || cards[randomId] === cardsRandom[3]) {
+            randomId = Math.floor(Math.random() * cards.length);
+        }
+        cardsRandom[i] = cards[randomId];
+    }
+}
+
 function createBoard() {
+    randomiseCards();
+    console.log(cardsRandom);
     for (let i = 0; i < cards.length; i++) {
         let cardElement = document.createElement('img');
         cardElement.setAttribute('src', "images/back.png");
@@ -61,18 +75,20 @@ function resetBoard() {
         cardElement.setAttribute('src', "images/back.png");
         console.log("card " + i + " has been reset"); 
         cardsInPlay.pop();  
+        cardsRandom.pop();
     }
+    randomiseCards();
     document.getElementById('reset-board').removeChild(document.getElementById('reset-button'));
     console.log("board has been reset, reset button removed");
 }
 
 function flipCard() {
     let cardId = this.getAttribute('data-id');
-    console.log("User flipped " + cards[cardId].rank);
-    console.log(cards[cardId].cardImage);
-    console.log(cards[cardId].suit);
-    cardsInPlay.push(cards[cardId].rank);
-    this.setAttribute('src',cards[cardId].cardImage);
+    console.log("User flipped " + cardsRandom[cardId].rank);
+    console.log(cardsRandom[cardId].cardImage);
+    console.log(cardsRandom[cardId].suit);
+    cardsInPlay.push(cardsRandom[cardId].rank);
+    this.setAttribute('src',cardsRandom[cardId].cardImage);
     if (cardsInPlay.length === 2) {
         setInterval(checkForMatch(), 2000);
     }
