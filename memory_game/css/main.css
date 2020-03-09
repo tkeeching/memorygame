@@ -120,10 +120,15 @@ footer {
 #reset-button {
     color: #F15B31;
     display: inline-block;
+    cursor: pointer;
 }
 
 #reset-button:hover {
     color: #F15B31;
     font-weight: 800;
     display: inline-block;
+}
+
+img {
+    cursor: pointer ;
 }

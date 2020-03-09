@@ -25,8 +25,8 @@ const cards = [
 ];
 
 const cardsRandom = [];
-
 const cardsInPlay = [];
+let cardIdPrevious = 0;
 
 function randomiseCards() {
     for (let i = 0; i < cards.length; i++) {
@@ -89,7 +89,12 @@ function flipCard() {
     console.log(cardsRandom[cardId].suit);
     cardsInPlay.push(cardsRandom[cardId].rank);
     this.setAttribute('src',cardsRandom[cardId].cardImage);
-    if (cardsInPlay.length === 2) {
+    if (cardsInPlay.length === 1) {
+        cardIdPrevious = cardId;
+    } else if ((cardsInPlay.length === 2) && (cardId == cardIdPrevious)) {
+        cardsInPlay.pop();
+        cardIdPrevious = cardId;
+    } else if ((cardsInPlay.length === 2) && (cardId !== cardIdPrevious)) {
         setInterval(checkForMatch(), 2000);
     }
     if (document.getElementById('reset-button') === null) {
